@@ -33,6 +33,31 @@ def random_number(min_val: int, max_val: int = 100) -> int:
     """
     return random.randint(min_val, max_val)
 
+@mcp.tool()
+def bmi_calculator(height_m: float, weight_kg: float) -> dict:
+    """
+    Calculate BMI and return category.
+    """
+    if height_m <= 0 or weight_kg <= 0:
+        raise ValueError("Height and weight must be positive values")
+
+    bmi = weight_kg / (height_m ** 2)
+
+    if bmi < 18.5:
+        category = "Underweight"
+    elif bmi < 25:
+        category = "Normal"
+    elif bmi < 30:
+        category = "Overweight"
+    else:
+        category = "Obese"
+
+    return {
+        "bmi": round(bmi, 2),
+        "category": category
+    }
+    
+
 @mcp.resource("info://server")
 def server_info() -> str:
     """
